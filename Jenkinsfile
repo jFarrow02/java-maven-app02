@@ -27,7 +27,7 @@ pipeline {
         stage("buildImage") {
             steps {
                 script {
-                    echo "building image $IMAGE...2"
+                    echo "building image $IMAGE...3"
                     buildImage(IMAGE, NEXUS_REPO)
                     echo "image $IMAGE built"
                 }

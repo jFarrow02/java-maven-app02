@@ -19,14 +19,26 @@ pipeline {
             }
         }
 
+        // stage("build image") {
+        //     steps {
+        //         script {
+        //             echo "building the docker image..."
+        //             withCredentials([usernamePassword(credentialsId: 'nexus-creds', usernameVariable: 'USERNAME', passwordVariable: 'PWD')]) {
+        //                 sh "docker build -t $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0 ."
+        //                 sh "echo $PWD | docker login -u $USERNAME --password-stdin $NEXUS_REPO:$NEXUS_PORT"
+        //                 sh "docker push $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0"
+        //             }
+        //         }
+        //     }
+        // }
         stage("build image") {
             steps {
                 script {
                     echo "building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'nexus-creds', usernameVariable: 'USERNAME', passwordVariable: 'PWD')]) {
-                        sh "docker build -t $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0 ."
-                        sh "echo $PWD | docker login -u $USERNAME --password-stdin $NEXUS_REPO:$NEXUS_PORT"
-                        sh "docker push $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0"
+                        sh "docker build -t jfarrow02/java-maven-app:0.2 ."
+                        sh "echo $PWD | docker login -u $USERNAME --password-stdin"
+                        sh "docker push jfarrow02/java-maven-app:0.2"
                     }
                 }
             }

@@ -20,6 +20,11 @@ pipeline {
         }
 
         stage("build jar") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'jenkins-job'
+                }
+            }
             steps {
                 script {
                    gv.buildJar()
@@ -41,6 +46,11 @@ pipeline {
         //     }
         // }
         stage("build image") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'jenkins-job'
+                }
+            }
             steps {
                 script {
                     gv.buildImage()
@@ -48,6 +58,11 @@ pipeline {
             }
         }
         stage("deploy") {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'jenkins-job'
+                }
+            }
             steps {
                 script {
                     gv.deployApp()

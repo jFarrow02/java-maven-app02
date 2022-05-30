@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     echo "building the docker image..."
-                    withCredentials([credentialId: 'nexus-creds', usernameVariable: 'USERNAME', passwordVariable: 'PWD']) {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-creds', usernameVariable: 'USERNAME', passwordVariable: 'PWD')]) {
                         sh "docker build -t . $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0"
                         sh "echo $PWD docker login -u $USERNAME --password-stdin $NEXUS_PORT"
                         sh "docker push $NEXUS_REPO:$NEXUS_PORT/java-maven-app:1.0"
